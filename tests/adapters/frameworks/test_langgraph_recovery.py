@@ -907,7 +907,7 @@ async def test_semantic_finalize_survives_heartbeat_observing_cleared_lease(
         deterministic,
         semantic=semantic,
         clock=_utc_now,
-        lease_duration=timedelta(milliseconds=300),
+        lease_duration=timedelta(seconds=1),
     ).run("case-review-1")
 
     assert repository.conflict_observed.is_set()
@@ -951,7 +951,7 @@ async def test_revision_finalize_survives_heartbeat_observing_cleared_lease(
         deterministic,
         reviser=reviser,
         clock=_utc_now,
-        lease_duration=timedelta(milliseconds=300),
+        lease_duration=timedelta(seconds=1),
     ).run("case-review-1")
 
     assert repository.conflict_observed.is_set()
@@ -1256,7 +1256,7 @@ async def test_semantic_failure_route_is_atomic_and_survives_cleared_lease_race(
             deterministic,
             semantic=semantic,
             clock=_utc_now,
-            lease_duration=timedelta(milliseconds=300),
+            lease_duration=timedelta(seconds=1),
         ).run("case-review-1")
 
     assert raised.value.case_id == "case-review-1"
@@ -1312,7 +1312,7 @@ async def test_revision_failure_survives_cleared_lease_race(
             deterministic,
             reviser=reviser,
             clock=_utc_now,
-            lease_duration=timedelta(milliseconds=300),
+            lease_duration=timedelta(seconds=1),
         ).run("case-review-1")
 
     assert raised.value.code == expected_code
@@ -1384,6 +1384,44 @@ async def test_semantic_heartbeat_blocks_concurrent_consented_resume_past_origin
     completed = await asyncio.wait_for(first, timeout=1.0)
     assert completed.case.status is ReviewStatus.AWAITING_HUMAN_REVIEW
     assert semantic.calls == 1
+
+
+async def test_provider_lifecycle_starts_lease_heartbeat_immediately(
+    tmp_path: Path,
+) -> None:
+    database = tmp_path / "immediate-heartbeat.sqlite3"
+    repository = ClearedLeaseRaceRepository(database)
+    await repository.initialize()
+    await _create_case(
+        repository,
+        mode=VerificationMode.HYBRID,
+        diagnoser=DiagnoserKind.DEEPSEEK,
+    )
+    deterministic = FakeVerifier(
+        VerifierKind.DETERMINISTIC,
+        [
+            _report(
+                VerifierKind.DETERMINISTIC,
+                VerifierVerdict.VERIFIED,
+                revision_number=0,
+                suffix="immediate-heartbeat",
+            )
+        ],
+    )
+    semantic = BlockingSemanticVerifier()
+    workflow = _workflow(
+        repository,
+        deterministic,
+        semantic=semantic,
+        clock=_utc_now,
+        lease_duration=timedelta(seconds=1),
+    )
+    running = asyncio.create_task(workflow.run("case-review-1"))
+    await asyncio.wait_for(semantic.entered.wait(), timeout=1.0)
+    assert repository.renew_entered.is_set()
+    semantic.release.set()
+    completed = await asyncio.wait_for(running, timeout=1.0)
+    assert completed.case.status is ReviewStatus.AWAITING_HUMAN_REVIEW
 
 
 async def test_revision_heartbeat_blocks_concurrent_consented_resume_past_original_expiry(

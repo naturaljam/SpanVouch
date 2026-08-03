@@ -204,12 +204,15 @@ class LangGraphReviewWorkflow:
         committed: asyncio.Event,
     ) -> None:
         interval = self._lease_duration.total_seconds() / 3
-        while True:
-            with suppress(TimeoutError):
-                await asyncio.wait_for(stopped.wait(), timeout=interval)
-            if stopped.is_set():
-                return
+
+        async def renew() -> None:
             now = self._now()
+            lease_expires_at = runtime.lease_expires_at
+            if (
+                lease_expires_at is not None
+                and now + self._lease_duration <= lease_expires_at
+            ):
+                return
             try:
                 await self._repository.renew_review_lease(
                     RenewReviewLease(
@@ -226,6 +229,14 @@ class LangGraphReviewWorkflow:
                 if committed.is_set():
                     return
                 raise
+
+        await renew()
+        while True:
+            with suppress(TimeoutError):
+                await asyncio.wait_for(stopped.wait(), timeout=interval)
+            if stopped.is_set():
+                return
+            await renew()
 
     async def _run_provider_lifecycle(
         self,
