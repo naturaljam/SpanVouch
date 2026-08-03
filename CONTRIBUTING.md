@@ -24,12 +24,15 @@ request:
 ```bash
 uv run ruff check src tests
 uv run mypy
-uv run pytest --cov=spanvouch --cov-report=term-missing --cov-fail-under=92
+uv run pytest --cov=spanvouch --cov-report=term-missing --cov-fail-under=91
 uv build --wheel --build-constraints build-constraints.txt --require-hashes --no-cache
 docker compose config --quiet
 release_version="$(python -c 'import tomllib; from pathlib import Path; print(tomllib.loads(Path("pyproject.toml").read_text(encoding="utf-8"))["project"]["version"])')"
 uv run spanvouch release verify --repo-root . --expected-version "$release_version"
 ```
+
+The Linux CI coverage floor is 91% because platform-specific Windows filesystem branches
+are skipped on the Ubuntu runner and exercised on their supported platform.
 
 Changes to the API image or persistence path should also pass the Docker smoke workflow in
 `.github/workflows/ci.yml`.
