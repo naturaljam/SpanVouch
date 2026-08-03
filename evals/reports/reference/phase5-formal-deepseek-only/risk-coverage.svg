@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="520" viewBox="0 0 800 520" role="img">
+<title>Phase 5 risk-coverage curves</title>
+<desc>False-acceptance risk against coverage, generated from risk-coverage.csv.</desc>
+<rect width="800" height="520" fill="white"/>
+<line x1="80" y1="440" x2="740" y2="440" stroke="#222"/>
+<line x1="80" y1="440" x2="80" y2="40" stroke="#222"/>
+<text x="390" y="495" text-anchor="middle">Coverage</text>
+<text x="20" y="240" transform="rotate(-90 20 240)" text-anchor="middle">Risk</text>
+<polyline points="740.00,141.27 740.00,141.27" fill="none" stroke="#005f73" stroke-width="2"/>
+<text x="500" y="55" fill="#005f73">opslab / autogen / b0_no_verifier</text>
+<polyline points="740.00,293.16 740.00,293.16" fill="none" stroke="#9b2226" stroke-width="2"/>
+<text x="500" y="73" fill="#9b2226">opslab / autogen / b1_deterministic</text>
+<polyline points="740.00,191.90 740.00,191.90" fill="none" stroke="#0a9396" stroke-width="2"/>
+<text x="500" y="91" fill="#0a9396">opslab / autogen / b2_deepseek_shared</text>
+<polyline points="740.00,272.91 740.00,272.91" fill="none" stroke="#ca6702" stroke-width="2"/>
+<text x="500" y="109" fill="#ca6702">opslab / autogen / b3_deepseek_isolated</text>
+<polyline points="740.00,140.00 740.00,140.00" fill="none" stroke="#3a0ca3" stroke-width="2"/>
+<text x="500" y="127" fill="#3a0ca3">opslab / langgraph / b0_no_verifier</text>
+<polyline points="740.00,295.00 740.00,295.00" fill="none" stroke="#6a994e" stroke-width="2"/>
+<text x="500" y="145" fill="#6a994e">opslab / langgraph / b1_deterministic</text>
+<polyline points="740.00,200.00 740.00,200.00" fill="none" stroke="#005f73" stroke-width="2"/>
+<text x="500" y="163" fill="#005f73">opslab / langgraph / b2_deepseek_shared</text>
+<polyline points="740.00,315.00 740.00,315.00" fill="none" stroke="#9b2226" stroke-width="2"/>
+<text x="500" y="181" fill="#9b2226">opslab / langgraph / b3_deepseek_isolated</text>
+<polyline points="740.00,120.00 740.00,120.00" fill="none" stroke="#0a9396" stroke-width="2"/>
+<text x="500" y="199" fill="#0a9396">supportlab / autogen / b0_no_verifier</text>
+<polyline points="740.00,340.00 740.00,340.00" fill="none" stroke="#ca6702" stroke-width="2"/>
+<text x="500" y="217" fill="#ca6702">supportlab / autogen / b1_deterministic</text>
+<polyline points="740.00,148.00 740.00,148.00" fill="none" stroke="#3a0ca3" stroke-width="2"/>
+<text x="500" y="235" fill="#3a0ca3">supportlab / autogen / b2_deepseek_shared</text>
+<polyline points="740.00,264.00 740.00,264.00" fill="none" stroke="#6a994e" stroke-width="2"/>
+<text x="500" y="253" fill="#6a994e">supportlab / autogen / b3_deepseek_isolated</text>
+<polyline points="740.00,120.81 740.00,120.81" fill="none" stroke="#005f73" stroke-width="2"/>
+<text x="500" y="271" fill="#005f73">supportlab / langgraph / b0_no_verifier</text>
+<polyline points="740.00,343.03 740.00,343.03" fill="none" stroke="#9b2226" stroke-width="2"/>
+<text x="500" y="289" fill="#9b2226">supportlab / langgraph / b1_deterministic</text>
+<polyline points="740.00,173.33 740.00,173.33" fill="none" stroke="#0a9396" stroke-width="2"/>
+<text x="500" y="307" fill="#0a9396">supportlab / langgraph / b2_deepseek_shared</text>
+<polyline points="740.00,266.26 740.00,266.26" fill="none" stroke="#ca6702" stroke-width="2"/>
+<text x="500" y="325" fill="#ca6702">supportlab / langgraph / b3_deepseek_isolated</text>
+</svg>

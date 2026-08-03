@@ -2,16 +2,17 @@
 \label{sec:experiments}
 
 The evaluation separates properties that can be established without a model
-provider from claims that require real semantic-verifier observations. We ask
+provider from observations that require real semantic-verifier calls. We ask
 three questions. \textbf{RQ1} tests whether the implemented evidence contract
 accepts contract-valid reports and intercepts controlled integrity, grounding,
 scope, and conflict defects. \textbf{RQ2} tests whether SpanVouch preserves
 determinism, recovery, dependency boundaries, and delivery behavior across its
 full release gate. \textbf{RQ3} tests whether the multi-domain,
 multi-framework B0--B5 artifact pipeline executes end to end without leaking
-labels or requiring a live provider. The formal semantic-effectiveness and
-group-selective-risk study remains governed by the protocol below, but its
-unexecuted outcomes are not mixed with RQ1--RQ3.
+labels or requiring a live provider. The v0.7 formal evidence is a separate
+DeepSeek-only observation of the declared matrix. Its claim gates remain
+fail-closed and unresolved; no outcome is promoted to a hypothesis support
+claim.
 
 \subsection{Frozen Deterministic Benchmark}
 
@@ -61,6 +62,36 @@ phase, and generates metrics, claim gates, paper assets, and a manifest. The
 artifact explicitly records \code{fake\_\allowbreak{}evidence=true}, zero provider calls,
 and zero GPU calls. Repeating the run must produce byte-identical bundles.
 
+\subsection{Formal DeepSeek-only Evidence and Claim--Evidence Map}
+
+The public aggregate bundle in
+\nolinkurl{evals/reports/reference/phase5-formal-deepseek-only/} binds the
+analysis input, evaluated-results manifest, and every copied result asset. The
+evaluated-results SHA-256 is
+\nolinkurl{bc09f1b134de9370a3b5209fa5e959bce01abbcdf05c8456af1f069fc4cd3088}.
+The matrix scheduled and evaluated 2,148 plans with zero missing cells. B0--B3
+completed under DeepSeek-only conditions; B4 and B5 were \textsc{policy-skipped}
+and have no Qwen results.
+
+\begin{table}[t]
+    \caption{v0.7 claim--evidence map. Entries are observational and remain
+    bounded by the stated artifact and scope.}
+    \label{tab:claim-evidence-map}
+    \centering
+    \scriptsize
+    \begin{tabular}{@{}p{0.26\columnwidth}p{0.36\columnwidth}p{0.30\columnwidth}@{}}
+        \toprule
+        Claim surface & Evidence & Permitted interpretation \\
+        \midrule
+        Matrix completion & evaluated-results manifest & 2,148 evaluated; 0 missing \\
+        SupportLab B3 vs B2 & paired-effects.csv & observed risk--coverage tradeoff \\
+        OpsLab B3 vs B2 & paired-effects.csv & preliminary observed replication \\
+        H1--H5 & claim-gates.json & unresolved; no support claim \\
+        B4/B5 & metrics and claim assets & policy-skipped; no Qwen result \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
 \subsection{Real-Provider and Risk Protocol}
 
 The result-bearing semantic study uses the same frozen traces and diagnoses
@@ -75,4 +106,6 @@ groups before outcome analysis. It reports every $(K_\lambda^G,M_\lambda^G)$
 pair, simultaneous upper bound, accepted-group minimum, feasibility decision,
 and selected candidate. Provider failures and contract-invalid outputs remain
 visible. No value from the fake-provider matrix enters this study's
-effectiveness or risk calculations.
+effectiveness or risk calculations. The v0.7 DeepSeek-only observations do not
+establish the preregistered H1--H5 hypotheses, and no empirical target-risk
+certificate is reported.

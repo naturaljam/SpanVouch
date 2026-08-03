@@ -61,12 +61,21 @@ domain--framework--condition matrix with no provider or GPU calls. This
 evidence tests executability, parity, provenance, and recovery; it does not
 substitute fake-provider behavior for a semantic-effectiveness result.
 
+The v0.7 formal evidence bundle adds a separate, aggregate DeepSeek-only
+observation. Its evaluated-results manifest is bound by SHA-256
+\nolinkurl{bc09f1b134de9370a3b5209fa5e959bce01abbcdf05c8456af1f069fc4cd3088}.
+The run scheduled and evaluated 2,148 plans with no missing cells, completed
+B0--B3, and skipped B4/B5 by policy. This report treats the resulting B3
+risk--coverage differences as observations within the declared matrix; they do
+not identify a causal intervention, establish cross-model behavior, or certify
+target risk.
+
 \begin{anonsuppress}
 Source code: \href{https://github.com/naturaljam/SpanVouch}
 {\nolinkurl{github.com/naturaljam/SpanVouch}}.
 \end{anonsuppress}
 
-This paper makes four contributions:
+This Technical Report makes four protocol and engineering contributions:
 \begin{itemize}
     \item We define IVAD, a diagnosis protocol whose causal claims bind to
     immutable trajectory fields through a machine-checkable claim--evidence

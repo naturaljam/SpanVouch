@@ -2,21 +2,17 @@
 Diagnosing failures in tool-using agents requires more than locating a suspicious
 step: a trustworthy report must identify a causal failure, bind each claim to
 re-addressable trajectory evidence, and expose when that evidence is
-insufficient. Existing attribution and critic pipelines can produce plausible
-reports, yet an authentic citation may be irrelevant and a second model may
-repeat the diagnoser's error. We introduce \method, Independently Verified
-Agent Diagnosis, which treats diagnosis as an evidence-constrained selective
-decision. IVAD combines a versioned claim--evidence contract, deterministic
-integrity and scope checks, a semantically separated verifier, one bounded
-revision, and explicit abstention or human review. It further specifies a
-group-selective risk protocol that applies simultaneous exact-binomial bounds
-over a frozen finite candidate family and evaluates the selected operating
-point once on untouched test data. We realize IVAD in \system, an open-source
-system with six public contract roots, recoverable review state, framework and
-provider adapters, and manifest-bound evaluation artifacts. System validation
-spans SupportLab and OpsLab through LangGraph and AutoGen, exercises 24
-domain--framework--condition cells offline, and verifies the complete artifact
-pipeline without provider or GPU calls. These results establish protocol
-executability and reproducibility; empirical semantic-verification gains and
-target-risk attainment remain separate, artifact-gated claims.
+insufficient. This Technical Report presents \method, Independently Verified
+Agent Diagnosis, as an evidence-constrained selective decision. IVAD combines a
+versioned claim--evidence contract, deterministic integrity and scope checks, a
+separated semantic verifier, one bounded revision, and explicit abstention or
+human review. It also specifies a group-selective risk protocol with
+simultaneous exact-binomial bounds over a frozen finite candidate family.
+\system realizes the protocol with six public contract roots, recoverable review
+state, framework and provider adapters, and manifest-bound artifacts. The latest
+formal evidence is DeepSeek-only: 2,148 scheduled/evaluated plans, zero missing
+cells, completed B0--B3 conditions, and policy-skipped B4/B5 conditions with no
+Qwen results. The observed B3-versus-B2 risk and coverage differences are a
+risk--coverage tradeoff under this fixed run, not causal, cross-model, or
+certificate evidence. H1--H5 remain unresolved.
 \end{abstract}

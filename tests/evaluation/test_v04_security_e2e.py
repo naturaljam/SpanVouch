@@ -151,7 +151,7 @@ def test_v3_migration_backup_restore_revocation_and_signed_export_survive_recove
         ).fetchone() == ("default",)
 
     with _client(database) as client:
-        assert client.app.version == "0.6.0"
+        assert client.app.version == "0.7.0"
         project_response = client.post(
             "/v1/admin/projects",
             json={"name": "Recovered Alpha"},
@@ -210,7 +210,7 @@ def test_v3_migration_backup_restore_revocation_and_signed_export_survive_recove
         ]
 
     verified = verify_audit_export(bundle)
-    assert verified.manifest.package.version == "0.6.0"
+    assert verified.manifest.package.version == "0.7.0"
     assert verified.project_id == project_id
     assert verified.event_count >= 4
     AuditChain().verify(_project_audit_events(restored, project_id))
@@ -253,7 +253,7 @@ def test_app_restart_preserves_project_permissions_and_audit_history(
         )
 
     with _client(database) as restarted_client:
-        assert restarted_client.app.version == "0.6.0"
+        assert restarted_client.app.version == "0.7.0"
         assert (
             restarted_client.post(
                 "/v1/traces",
@@ -270,5 +270,5 @@ def test_app_restart_preserves_project_permissions_and_audit_history(
 
     verified = verify_audit_export(Path(export_response.json()["bundle_path"]))
     assert [event.action for event in verified.events].count("trace.ingest") == 2
-    assert verified.manifest.package.version == "0.6.0"
+    assert verified.manifest.package.version == "0.7.0"
     AuditChain().verify(_project_audit_events(database, project_id))

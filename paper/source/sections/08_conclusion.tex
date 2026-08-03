@@ -13,11 +13,16 @@ no-feasible-point outcome.
 SpanVouch realizes this trust boundary as a versioned, recoverable open-source
 system. On the frozen 36-candidate benchmark, deterministic verification
 accepted all 20 valid reports and intercepted all 16 injected defects. The
-audited release gate recorded 1,637 passes, one platform-specific skip, and
-93.40\% coverage, while the 24-cell offline matrix reproduced the complete
+local v0.7.0 Windows candidate run recorded 1,803 passes, one skip, three known
+CRLF-only frozen-reference failures, and 92.14\% coverage; it is therefore not
+a fully green release gate. The 24-cell offline matrix reproduced the complete
 multi-domain, multi-framework artifact path with zero provider and GPU calls.
-These results establish executable contract behavior, system integrity, and
-reproducibility. They do not turn fake-provider execution into a semantic
-effectiveness result or an empirical selective-risk certificate. Together,
-IVAD and SpanVouch provide a precise protocol and an engineering substrate for
-auditable acceptance of agent-failure diagnoses.
+The passing checks establish executable contract behavior and exercise the
+system and reproducibility paths. The v0.7 formal bundle additionally records
+DeepSeek-only observations: 2,148 scheduled/evaluated plans, zero missing cells,
+completed B0--B3, and policy-skipped B4/B5 with no Qwen results. The observed B3-versus-B2
+risk and coverage differences describe a risk--coverage tradeoff in this run;
+they are not causal, cross-model, or certificate claims. H1--H5 remain
+unresolved. Together, IVAD and SpanVouch provide a precise protocol and an
+engineering substrate for auditable acceptance of agent-failure diagnoses while
+keeping unsupported claims fail-closed.

@@ -10,8 +10,8 @@
   <a href="https://github.com/naturaljam/SpanVouch/actions/workflows/ci.yml">CI</a> &middot;
   <a href="https://www.python.org/">Python 3.12</a> &middot;
   <a href="LICENSE">MIT License</a> &middot;
-  <a href="paper/IVAD.pdf">IVAD paper</a> &middot;
-  <a href="https://github.com/naturaljam/SpanVouch/releases/tag/v0.6.0">v0.6.0</a>
+  <a href="paper/IVAD.pdf">IVAD Technical Report</a> &middot;
+  <a href="https://github.com/naturaljam/SpanVouch/releases/tag/v0.7.0">v0.7.0</a>
 </p>
 
 <p align="center">
@@ -28,7 +28,7 @@ immutable trace -> sanitized evidence -> structured diagnosis
                 -> durable state + reproducible artifact
 ```
 
-[Read the IVAD preprint](paper/IVAD.pdf) | [Browse the LaTeX source](paper/source/) | [Download release v0.6.0](https://github.com/naturaljam/SpanVouch/releases/tag/v0.6.0)
+[Read the IVAD Technical Report](paper/IVAD.pdf) | [Browse the LaTeX source](paper/source/) | [Download release v0.7.0](https://github.com/naturaljam/SpanVouch/releases/tag/v0.7.0)
 
 ## Why agent diagnosis needs an evidence layer
 
@@ -74,9 +74,9 @@ The public contract surface contains six versioned roots: trace, diagnostic cont
 
 ## IVAD research foundation
 
-[IVAD: Evidence-Constrained and Risk-Controlled Failure Diagnosis for AI Agents](paper/IVAD.pdf) introduces Independently Verified Agent Diagnosis (IVAD), the protocol that SpanVouch realizes. IVAD asks a narrower and more operational question than failure attribution alone: when may a system accept an evidence-bearing diagnosis, and when must it revise, abstain, or defer?
+[IVAD: Evidence-Constrained and Risk-Controlled Failure Diagnosis for AI Agents](paper/IVAD.pdf) is the project Technical Report introducing Independently Verified Agent Diagnosis (IVAD), the protocol that SpanVouch realizes. IVAD asks a narrower and more operational question than failure attribution alone: when may a system accept an evidence-bearing diagnosis, and when must it revise, abstain, or defer?
 
-The paper contributes three connected ideas:
+The Technical Report contributes three connected ideas:
 
 - **Evidence-bearing decision object**: a diagnosis contains bounded causal claims, stable evidence references, status, provenance, and explicit unresolved evidence
 - **Separated trust channels**: deterministic integrity, optional semantic support, bounded revision, and human authority cannot silently override one another
@@ -84,24 +84,26 @@ The paper contributes three connected ideas:
 
 The formal statement assumes a frozen loss and pipeline, independently sampled preregistered groups, a finite candidate family, simultaneous bounds, a positive minimum accepted-group count, deterministic selection, and one evaluation on untouched test data. SpanVouch supplies the contracts, state machine, adapters, and artifact identities required to execute that protocol.
 
-- [Read the 8-page preprint](paper/IVAD.pdf)
+- [Read the Technical Report](paper/IVAD.pdf)
 - [Build from the reproducible LaTeX source](paper/source/)
-- [Review paper construction and CC BY 4.0 licensing](paper/README.md)
-- [Download the versioned PDF and source archive](https://github.com/naturaljam/SpanVouch/releases/tag/v0.6.0)
+- [Review report construction and CC BY 4.0 licensing](paper/README.md)
+- [Download the versioned PDF and source archive](https://github.com/naturaljam/SpanVouch/releases/tag/v0.7.0)
+
+The v0.7 formal evidence bundle is [published in the repository](evals/reports/reference/phase5-formal-deepseek-only/). It binds aggregate results to evaluated-results SHA-256 `bc09f1b134de9370a3b5209fa5e959bce01abbcdf05c8456af1f069fc4cd3088` and records 2,148 scheduled/evaluated cells with 0 missing cells. B0-B3 completed under DeepSeek-only conditions; B4 and B5 are `policy-skipped` with no Qwen results. H1-H5 remain unresolved.
 
 ## Validated engineering evidence
 
-The public evidence snapshot at Git revision `441871aa19cd4d7c129a721a449c5a098780afd1` records the following results.
+The local Windows candidate verification for v0.7.0 records the following results. This is not a fully green release gate: three tests fail only because Git's CRLF checkout changes byte-for-byte frozen reference assets; the same line-ending limitation was already documented in the v0.6 handoff.
 
 | Validation surface | Observed result |
 | --- | --- |
 | Evidence-contract benchmark | 36 candidates; 20/20 valid reports accepted; 16/16 injected defects intercepted; 0/20 false blocks |
-| Release suite | 1,638 tests collected; 1,637 passed; 1 skipped; 93.40% statement coverage |
+| Release suite | 1,807 tests collected; 1,803 passed; 1 skipped; 3 CRLF-only frozen-reference failures; 92.14% statement coverage |
 | Offline evaluation matrix | 24/24 cells completed across SupportLab, OpsLab, LangGraph, and AutoGen |
 | Adapter and parity checks | 4 adapter executions and 2 framework-parity comparisons completed |
 | Provider safety | 0 provider calls and 0 GPU calls in the checked-in offline matrix |
 
-These measurements establish deterministic contract behavior, injected-defect interception, process recovery, delivery integrity, and offline artifact reproducibility. The offline matrix uses declared fake-provider conditions to exercise interfaces and orchestration without presenting those runs as semantic-effectiveness evidence. Provider-backed semantic gains and empirical target-risk attainment require their corresponding result-bearing artifacts.
+The passing measurements establish deterministic contract behavior, injected-defect interception, process recovery, and the exercised delivery paths. The three known failures prevent treating this local candidate as a fully green release gate until the repository's line-ending policy for the older frozen references is resolved. The offline matrix uses declared fake-provider conditions to exercise interfaces and orchestration without presenting those runs as semantic-effectiveness evidence. Provider-backed semantic gains and empirical target-risk attainment require their corresponding result-bearing artifacts.
 
 ## What you can build
 
@@ -144,7 +146,7 @@ uv run spanvouch evaluate review --output .cache/review-rules.json
 Verify a release handoff entirely offline from the checkout:
 
 ```bash
-uv run spanvouch release verify --repo-root . --expected-version 0.6.0
+uv run spanvouch release verify --repo-root . --expected-version 0.7.0
 ```
 
 Start the API:
@@ -247,15 +249,15 @@ src/spanvouch/   contracts, trace, diagnosis, verification, review, API, CLI
 schemas/v1/      versioned public JSON Schema contracts
 tests/           unit, contract, architecture, integration, and E2E tests
 evals/           frozen datasets, configurations, and reference reports
-paper/           IVAD preprint, reproducible source, and build notes
+paper/           IVAD Technical Report, reproducible source, and build notes
 ```
 
 ## Cite IVAD and SpanVouch
 
-GitHub reads [`CITATION.cff`](CITATION.cff) and exposes the repository's citation metadata. Cite the IVAD preprint when your work depends on the protocol, formalization, or evaluation design:
+GitHub reads [`CITATION.cff`](CITATION.cff) and exposes the repository's citation metadata. Cite the IVAD Technical Report when your work depends on the protocol, formalization, or evaluation design:
 
 ```bibtex
-@article{liu2026ivad,
+@techreport{liu2026ivad,
   title  = {IVAD: Evidence-Constrained and Risk-Controlled Failure Diagnosis for AI Agents},
   author = {Liu, Hanzhe},
   year   = {2026},
@@ -265,4 +267,4 @@ GitHub reads [`CITATION.cff`](CITATION.cff) and exposes the repository's citatio
 
 ## Contribute and license
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md) before opening an issue or pull request. SpanVouch software is available under the [MIT License](LICENSE). The IVAD paper, figures, and source use [CC BY 4.0](paper/README.md).
+Read [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md) before opening an issue or pull request. SpanVouch software is available under the [MIT License](LICENSE). The IVAD Technical Report, figures, and source use [CC BY 4.0](paper/README.md).

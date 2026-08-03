@@ -1,0 +1,36 @@
+{
+  "schema_name": "spanvouch.phase5-public-evidence-manifest",
+  "schema_version": "1.0",
+  "experiment_id": "phase5-multiframework-isolated-verification",
+  "mode": "formal",
+  "provider_scope": "deepseek-only",
+  "evaluated_results_manifest_sha256": "bc09f1b134de9370a3b5209fa5e959bce01abbcdf05c8456af1f069fc4cd3088",
+  "analysis_input_sha256": "dfb07f4d09a5a55eb098397ac6cb8628125a3f630517d92a0f6399f2755fe4f6",
+  "source_analysis_manifest_sha256": "e06235b149f57040a2d0862d08d7fb536e79cc17695b98f8d188aaeb7f36f5ff",
+  "source_analysis_input_manifest_sha256": "cf9cc4fbd592f2d41c1737504c77f80c4283ee8bdd788aca296894e5c1b168cd",
+  "analysis_seed": 20260720,
+  "bootstrap_draws": 10000,
+  "scheduled_count": 2148,
+  "evaluated_count": 2148,
+  "missing_count": 0,
+  "completed_conditions": ["b0_no_verifier", "b1_deterministic", "b2_deepseek_shared", "b3_deepseek_isolated"],
+  "policy_skipped_conditions": ["b4_qwen_isolated", "b5_deterministic_qwen"],
+  "claim_gate_status": {
+    "H1": "unresolved",
+    "H2": "unresolved",
+    "H3": "unresolved",
+    "H4": "unresolved",
+    "H5": "unresolved"
+  },
+  "assets": [
+    {"path": "claim-gates.json", "sha256": "ede1b05183d94dbeb645eea1c928dea455e0b7c910721c4cb6ed97a9d95343cb"},
+    {"path": "failure-accounting.csv", "sha256": "292a736d631ab9dd6c3a247c23cb5274de10fd9b649155fbadcccb8c8fcf3462"},
+    {"path": "main-results.md", "sha256": "f575278108f6be45055000556f973d2b1e546a98e3368548f0312621ed30abf3"},
+    {"path": "metrics-by-condition.csv", "sha256": "fe95d055f20beb3f942b56a511bec9a924810f235f79267f037efea209cd3734"},
+    {"path": "paired-effects.csv", "sha256": "fdf1b9ef6cff967893724b96bcdf2284b6432b3eda1ea329397e004b4de310e5"},
+    {"path": "risk-coverage.csv", "sha256": "b36b9abac759c80625ce7eb82e402c3b6968c986eab9d72812a6a595bbd3bee5"},
+    {"path": "risk-coverage.svg", "sha256": "df4d9b9e777c6dc95d4f70209894df5ad5ea3e33b68c1a1970ebb5d44a162671"},
+    {"path": "source-analysis-manifest.json", "sha256": "e06235b149f57040a2d0862d08d7fb536e79cc17695b98f8d188aaeb7f36f5ff"},
+    {"path": "source-analysis-input-manifest.json", "sha256": "cf9cc4fbd592f2d41c1737504c77f80c4283ee8bdd788aca296894e5c1b168cd"}
+  ]
+}

@@ -10,8 +10,8 @@
   <a href="https://github.com/naturaljam/SpanVouch/actions/workflows/ci.yml">CI</a> &middot;
   <a href="https://www.python.org/">Python 3.12</a> &middot;
   <a href="LICENSE">MIT License</a> &middot;
-  <a href="paper/IVAD.pdf">IVAD 论文</a> &middot;
-  <a href="https://github.com/naturaljam/SpanVouch/releases/tag/v0.6.0">v0.6.0</a>
+  <a href="paper/IVAD.pdf">IVAD 技术报告</a> &middot;
+  <a href="https://github.com/naturaljam/SpanVouch/releases/tag/v0.7.0">v0.7.0</a>
 </p>
 
 <p align="center">
@@ -28,7 +28,7 @@ SpanVouch 将 Agent 执行轨迹转换为可审计、可恢复、可复现的诊
            -> 持久状态 + 签名审计导出
 ```
 
-[阅读 IVAD 预印本](paper/IVAD.pdf) | [查看 LaTeX 源码](paper/source/) | [下载 v0.6.0](https://github.com/naturaljam/SpanVouch/releases/tag/v0.6.0)
+[阅读 IVAD 技术报告](paper/IVAD.pdf) | [查看 LaTeX 源码](paper/source/) | [下载 v0.7.0](https://github.com/naturaljam/SpanVouch/releases/tag/v0.7.0)
 
 ## 为什么需要证据层
 
@@ -44,7 +44,9 @@ SpanVouch 的目标不是生成“看起来合理”的解释，而是形成工�
 
 ## IVAD 协议基础
 
-[IVAD: Evidence-Constrained and Risk-Controlled Failure Diagnosis for AI Agents](paper/IVAD.pdf) 提出 Independently Verified Agent Diagnosis。IVAD 关心的是一个更接近生产运行的问题：系统何时可以接受一份带证据的诊断，何时必须修订、弃权或交给人类。
+[IVAD: Evidence-Constrained and Risk-Controlled Failure Diagnosis for AI Agents](paper/IVAD.pdf) 是项目技术报告，提出 Independently Verified Agent Diagnosis。IVAD 关心的是一个更接近生产运行的问题：系统何时可以接受一份带证据的诊断，何时必须修订、弃权或交给人类。
+
+v0.7 的正式证据包位于 [evals/reports/reference/phase5-formal-deepseek-only/](evals/reports/reference/phase5-formal-deepseek-only/)，绑定 evaluated-results SHA-256 `bc09f1b134de9370a3b5209fa5e959bce01abbcdf05c8456af1f069fc4cd3088`。本次 DeepSeek-only 矩阵共安排并评估 2,148 个计划，缺失数为 0；B0-B3 完成，B4/B5 为 `policy-skipped` 且没有 Qwen 结果。H1-H5 仍为 unresolved；报告中的风险和覆盖率差异只是观测到的权衡，不是因果证明、跨模型结论或经验 target-risk certificate。
 
 SpanVouch 是 IVAD 的工程实现。核心包括：
 
@@ -80,7 +82,7 @@ uv run spanvouch evaluate review --output .cache/review-rules.json
 从本地 checkout 离线验证发布交接：
 
 ```bash
-uv run spanvouch release verify --repo-root . --expected-version 0.6.0
+uv run spanvouch release verify --repo-root . --expected-version 0.7.0
 ```
 
 启动 API：
@@ -167,7 +169,7 @@ src/spanvouch/   contracts、trace、diagnosis、verification、review、API、C
 schemas/v1/      公开 JSON Schema 合同
 tests/           单元、合同、架构、集成和端到端测试
 evals/           冻结数据集、配置和参考报告
-paper/           IVAD 预印本、可复现源码和构建说明
+paper/           IVAD 技术报告、可复现源码和构建说明
 ```
 
 ## 引用与许可
@@ -175,7 +177,7 @@ paper/           IVAD 预印本、可复现源码和构建说明
 如使用 IVAD 协议、形式化方法或实验设计，请引用：
 
 ```bibtex
-@article{liu2026ivad,
+@techreport{liu2026ivad,
   title  = {IVAD: Evidence-Constrained and Risk-Controlled Failure Diagnosis for AI Agents},
   author = {Liu, Hanzhe},
   year   = {2026},
@@ -183,4 +185,4 @@ paper/           IVAD 预印本、可复现源码和构建说明
 }
 ```
 
-SpanVouch 软件使用 [MIT License](LICENSE)。IVAD 论文、图表和源码使用 [CC BY 4.0](paper/README.md)。
+SpanVouch 软件使用 [MIT License](LICENSE)。IVAD 技术报告、图表和源码使用 [CC BY 4.0](paper/README.md)。

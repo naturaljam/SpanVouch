@@ -43,19 +43,19 @@ valid reports from six classes of known invalid report.
 
 \subsection{System Validation Results}
 
-Table~\ref{tab:system-results} summarizes the system-level evidence. The audited
-public snapshot at Git revision
-\nolinkurl{441871aa19cd4d7c129a721a449c5a098780afd1} collects 1,638 tests;
-its complete local release gate recorded 1,637 passes, one platform-specific
-skip, and 93.40\% statement coverage.
-Static analysis, packaging, Compose validation, and the unprivileged container
-path passed. The accepted recovery gate also completed all 20 independent
-SQLite stability processes and preserved an end-to-end review decision across
-an API-container restart.
+Table~\ref{tab:system-results} summarizes the system-level evidence. The local
+Windows candidate verification for v0.7.0 collected 1,807 tests: 1,803 passed,
+one was skipped, and three failed only because CRLF checkout changed
+byte-for-byte frozen reference assets. Statement coverage was 92.14\%, above
+the 91\% project threshold, but the three known failures mean this candidate is
+not a fully green release gate. Static analysis and packaging were checked
+separately. The accepted recovery gate also completed all 20 independent SQLite
+stability processes and preserved an end-to-end review decision across an
+API-container restart.
 
 \begin{table}[t]
-    \caption{SpanVouch engineering validation. The exact public Git revision
-    is stated in the accompanying text.}
+    \caption{SpanVouch engineering validation. Candidate-suite failures are
+    limited to the documented Windows CRLF frozen-reference mismatch.}
     \label{tab:system-results}
     \centering
     \small
@@ -63,9 +63,9 @@ an API-container restart.
         \toprule
         Validation surface & Observed result \\
         \midrule
-        Code snapshot & Public Git revision named above \\
+        Code snapshot & Local v0.7.0 candidate on Windows \\
         Public contracts & 6 versioned roots with strict valid/invalid fixtures \\
-        Release suite & 1,637 passed, 1 skipped; 93.40\% coverage \\
+        Release suite & 1,803 passed, 1 skipped, 3 CRLF-only failures; 92.14\% coverage \\
         Static/delivery gates & Ruff, strict mypy, locked wheel, and Compose passed \\
         Process recovery & 20/20 SQLite processes completed \\
         Container recovery & Unprivileged API retained the terminal decision after restart \\
@@ -85,6 +85,21 @@ bundles. The run attempted zero provider requests and zero GPU operations.
 The matrix result establishes that every B0--B5 delivery and analysis interface
 is executable across both labs and framework adapters. It does not rank the six
 conditions: fake semantic-provider outputs intentionally make the recorded
-condition risks unsuitable for an effectiveness comparison. Real-provider
-false-acceptance, correlated-error, and empirical target-risk results therefore
-remain outside the reported findings.
+condition risks unsuitable for an effectiveness comparison.
+
+\subsection{Formal DeepSeek-only Observations}
+
+The v0.7 aggregate bundle is bound to evaluated-results SHA-256
+\nolinkurl{bc09f1b134de9370a3b5209fa5e959bce01abbcdf05c8456af1f069fc4cd3088}.
+It contains 2,148 scheduled and evaluated plans, with zero missing cells. B0,
+B1, B2, and B3 completed; B4 and B5 were \textsc{policy-skipped}, so no Qwen
+results are available.
+
+On SupportLab, the paired B3-minus-B2 risk difference was $-0.102391$; its 95\%
+interval ran from $-0.165462$ to $-0.046525$. The coverage difference was
+$-0.254190$, with limits $-0.358543$ and $-0.155989$. On OpsLab, the preliminary
+paired risk difference was $-0.116192$, with limits $-0.206115$ and $-0.032821$.
+These are observed DeepSeek-only risk--coverage
+tradeoffs under the frozen matrix. They do not establish a causal effect,
+cross-model generalization, verifier independence, or an empirical target-risk
+certificate. The machine-readable H1--H5 gates remain unresolved.

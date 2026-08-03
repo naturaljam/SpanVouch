@@ -22,7 +22,7 @@ def test_api_public_identity() -> None:
     application = create_app()
 
     assert application.title == "SpanVouch"
-    assert application.version == "0.6.0"
+    assert application.version == "0.7.0"
 
 
 def test_old_database_environment_variable_does_not_override_new_default(

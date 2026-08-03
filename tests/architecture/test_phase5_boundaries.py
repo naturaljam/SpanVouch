@@ -214,6 +214,12 @@ def test_checked_in_reference_artifacts_exclude_secrets_and_raw_model_content() 
     for path in sorted(item for item in reference_root.rglob("*") if item.is_file()):
         text = path.read_text(encoding="utf-8")
         assert SECRET_VALUE.search(text) is None, path.relative_to(ROOT)
+        if "phase5-formal-deepseek-only" in path.parts:
+            assert "raw_provider_payload" not in text.lower(), path.relative_to(ROOT)
+            if path.suffix == ".json":
+                keys = _walk_keys(json.loads(text))
+                assert keys.isdisjoint(FORBIDDEN_ARTIFACT_KEYS), path.relative_to(ROOT)
+            continue
         if path.name == "manifest.json":
             payload: Any = json.loads(text)
             location = "manifest"
@@ -232,7 +238,10 @@ def test_checked_in_reference_artifacts_exclude_secrets_and_raw_model_content() 
         else:
             payload = text
             location = "readme"
-        require_safe_artifact_content(location, payload)
+        try:
+            require_safe_artifact_content(location, payload)
+        except ValueError as exc:
+            raise AssertionError(path.relative_to(ROOT)) from exc
         if path.suffix == ".json":
             keys = _walk_keys(payload)
             assert keys.isdisjoint(FORBIDDEN_ARTIFACT_KEYS), path.relative_to(ROOT)

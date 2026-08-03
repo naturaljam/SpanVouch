@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use SpanVouch or IVAD, please cite the IVAD preprint."
+message: "If you use SpanVouch or IVAD, please cite the IVAD Technical Report."
 title: "SpanVouch: Evidence-Backed Failure Diagnosis for AI Agents"
 type: software
 authors:
@@ -9,8 +9,8 @@ authors:
 repository-code: "https://github.com/naturaljam/SpanVouch"
 url: "https://github.com/naturaljam/SpanVouch"
 license: MIT
-version: 0.6.0
-date-released: 2026-07-31
+version: 0.7.0
+date-released: 2026-08-03
 keywords:
   - AI agents
   - failure diagnosis
@@ -18,7 +18,7 @@ keywords:
   - evidence grounding
   - selective risk control
 preferred-citation:
-  type: article
+  type: report
   title: "IVAD: Evidence-Constrained and Risk-Controlled Failure Diagnosis for AI Agents"
   authors:
     - family-names: Liu

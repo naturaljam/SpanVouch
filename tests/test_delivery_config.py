@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import re
 import subprocess
 import tomllib
@@ -411,7 +412,7 @@ def test_phase_4_release_candidate_documents_delivery_and_six_contract_roots() -
     legacy_environment = "AF" + "C_DB_PATH"
 
     assert project["project"]["name"] == "spanvouch"
-    assert project["project"]["version"] == "0.6.0"
+    assert project["project"]["version"] == "0.7.0"
     assert project["project"]["scripts"] == {"spanvouch": "spanvouch.cli.main:main"}
     assert "SPANVOUCH_DB_PATH" in compose
     assert "SPANVOUCH_AUDIT_SIGNING_KEY_PATH" in compose
@@ -484,6 +485,40 @@ def test_phase_5_ci_enforces_coverage_and_explicit_offline_acceptance_gates() ->
         "uv run --no-sync pytest tests/evaluation/test_phase5_offline_e2e.py -v"
     ) in workflow
     assert "${{ secrets." not in workflow
+
+
+def test_v07_technical_report_and_formal_evidence_are_publicly_bound() -> None:
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    readme_zh = (ROOT / "README.zh-CN.md").read_text(encoding="utf-8")
+    paper_readme = (ROOT / "paper" / "README.md").read_text(encoding="utf-8")
+    citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
+    latex = (ROOT / "paper" / "source" / "main-arxiv.tex").read_text(encoding="utf-8")
+    bundle = ROOT / "evals" / "reports" / "reference" / "phase5-formal-deepseek-only"
+
+    assert "Technical Report" in readme
+    assert "技术报告" in readme_zh
+    assert "Technical Report" in paper_readme
+    assert "technical report" in citation.lower()
+    assert "Technical Report" in latex
+    assert "bc09f1b134de9370a3b5209fa5e959bce01abbcdf05c8456af1f069fc4cd3088" in readme
+    assert "2,148" in readme
+    assert "B4 and B5" in readme
+    assert "H1-H5" in readme
+    assert "unresolved" in readme.lower()
+    assert (bundle / "README.md").is_file()
+    assert (bundle / "manifest.json").is_file()
+    manifest = json.loads((bundle / "manifest.json").read_text(encoding="utf-8"))
+    for asset in manifest["assets"]:
+        assert hashlib.sha256((bundle / asset["path"]).read_bytes()).hexdigest() == asset["sha256"]
+    bundle_text = "\n".join(
+        path.read_text(encoding="utf-8")
+        for path in sorted(bundle.iterdir())
+        if path.is_file()
+    )
+    assert "policy-skipped" in bundle_text
+    unsafe_secret = r"(?i)sk-[a-z0-9]{20,}|api[_-]?key|authorization:\\s*bearer"
+    assert re.search(unsafe_secret, bundle_text) is None
+    assert "raw_provider_payload" not in bundle_text
 
 
 def test_phase_4_acceptance_evidence_includes_a_clean_offline_reference_bundle() -> None:

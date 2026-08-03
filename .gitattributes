@@ -10,3 +10,7 @@ paper/source/*.tex text eol=lf
 paper/source/*.bib text eol=lf
 paper/source/figures/*.tex text eol=lf
 paper/source/sections/*.tex text eol=lf
+evals/reports/reference/phase5-formal-deepseek-only/*.json text eol=lf
+evals/reports/reference/phase5-formal-deepseek-only/*.csv text eol=lf
+evals/reports/reference/phase5-formal-deepseek-only/*.md text eol=lf
+evals/reports/reference/phase5-formal-deepseek-only/*.svg text eol=lf
