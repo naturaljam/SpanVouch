@@ -14,3 +14,6 @@ evals/reports/reference/phase5-formal-deepseek-only/*.json text eol=lf
 evals/reports/reference/phase5-formal-deepseek-only/*.csv text eol=lf
 evals/reports/reference/phase5-formal-deepseek-only/*.md text eol=lf
 evals/reports/reference/phase5-formal-deepseek-only/*.svg text eol=lf
+evals/reports/reference/phase4-offline-bundle/* text eol=lf
+evals/reports/reference/phase5-offline-smoke/* text eol=lf
+tests/verification/fixtures/deterministic-reference-v1.json text eol=lf
